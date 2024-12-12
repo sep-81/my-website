@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receive Iframe Content</title>
-</head>
-<body>
-    <h1>Received Iframe Content</h1>
-    <pre id="iframe-content" style="white-space: pre-wrap; background: #f4f4f4; padding: 1em;"></pre>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Receive  Content</title>
+  </head>
+  <body>
+    <h1>Received  Content</h1>
+    <pre
+      id="iframe-content"
+      style="white-space: pre-wrap; background: #f4f4f4; padding: 1em"
+    ></pre>
 
     <script>
-        window.addEventListener("message", (event) => {
-            if (event.origin !== "https://diary.owley-madison.jeopardy.websec.saarland") {
-                console.error("Received message from an unknown origin:", event.origin);
-                return;
-            }
-            console.log("Received message:", event);
+      // window.addEventListener("message", (event) => {
+      //     if (event.origin !== "https://diary.owley-madison.jeopardy.websec.saarland") {
+      //         console.error("Received message from an unknown origin:", event.origin);
+      //         return;
+      //     }
+      //     console.log("Received message:", event);
 
-            // Display the event origin (source page) and content for debugging
-            // const outputDiv = document.getElementById("output");
+      //     // Display the event origin (source page) and content for debugging
+      //     // const outputDiv = document.getElementById("output");
 
-            // if (!event.data || !event.data.content) {
-            //     outputDiv.textContent += "\nInvalid message or no content received.\n";
-            //     return;
-            // }
+      //     // if (!event.data || !event.data.content) {
+      //     //     outputDiv.textContent += "\nInvalid message or no content received.\n";
+      //     //     return;
+      //     // }
 
-            // // Append the received message content to the output div
-            // const timestamp = new Date().toISOString();
-            // outputDiv.textContent += `\n[${timestamp}] Message received from: ${event.origin}\n`;
-            // outputDiv.textContent += event.data.content + "\n";
+      //     // // Append the received message content to the output div
+      //     // const timestamp = new Date().toISOString();
+      //     // outputDiv.textContent += `\n[${timestamp}] Message received from: ${event.origin}\n`;
+      //     // outputDiv.textContent += event.data.content + "\n";
 
+      //     // Log and display the received message
+      //     const logDiv = document.getElementById("iframe-content");
+      //     logDiv.textContent += `Received message at ${new Date().toLocaleTimeString()}:\n${JSON.stringify(event.data, null, 2)}\n\n`;
 
+      //     console.log("Received message:", event.data);
+      //   });
+      window.addEventListener("message", (event) => {
+        console.log("Message received:", event.data);
+        const logDiv = document.getElementById("iframe-content");
+        logDiv.textContent += `\nMessage received from ${
+          event.origin
+        }:\n${JSON.stringify(event.data, null, 2)}\n\n`;
+      });
 
-            // Log and display the received message
-            const logDiv = document.getElementById("iframe-content");
-            logDiv.textContent += `Received message at ${new Date().toLocaleTimeString()}:\n${JSON.stringify(event.data, null, 2)}\n\n`;
+      //     console.log("Received message from an origin:", event.origin);
 
-            console.log("Received message:", event.data);
-          });
-        //     console.log("Received message from an origin:", event.origin);
-            
-        //     // Display the received iframe content
-        //     const iframeContent = event.data.content;
-        //     document.getElementById("iframe-content").textContent = iframeContent;
-        // });
+      //     // Display the received iframe content
+      //     const iframeContent = event.data.content;
+      //     document.getElementById("iframe-content").textContent = iframeContent;
+      // });
     </script>
-</body>
+  </body>
 </html>
