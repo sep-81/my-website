@@ -11,16 +11,31 @@
 
     <script>
         window.addEventListener("message", (event) => {
-            // if (event.origin !== "https://diary.owley-madison.jeopardy.websec.saarland") {
-            //     console.error("Received message from an unknown origin:", event.origin);
-            //     return;
-            // }
-            console.log("Received message from an origin:", event.origin);
+            if (event.origin !== "https://diary.owley-madison.jeopardy.websec.saarland") {
+                console.error("Received message from an unknown origin:", event.origin);
+                return;
+            }
+            console.log("Received message:", event);
+
+            // Display the event origin (source page) and content for debugging
+            const outputDiv = document.getElementById("output");
+
+            if (!event.data || !event.data.content) {
+                outputDiv.textContent += "\nInvalid message or no content received.\n";
+                return;
+            }
+
+            // Append the received message content to the output div
+            const timestamp = new Date().toISOString();
+            outputDiv.textContent += `\n[${timestamp}] Message received from: ${event.origin}\n`;
+            outputDiv.textContent += event.data.content + "\n";
+          });
+        //     console.log("Received message from an origin:", event.origin);
             
-            // Display the received iframe content
-            const iframeContent = event.data.content;
-            document.getElementById("iframe-content").textContent = iframeContent;
-        });
+        //     // Display the received iframe content
+        //     const iframeContent = event.data.content;
+        //     document.getElementById("iframe-content").textContent = iframeContent;
+        // });
     </script>
 </body>
 </html>
