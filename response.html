@@ -3,24 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Receive  Content</title>
+    <title>Receive Content</title>
   </head>
   <body>
-    <h1>Received  Content</h1>
+    <h1>Received Content</h1>
     <pre
       id="iframe-content"
       style="white-space: pre-wrap; background: #f4f4f4; padding: 1em"
-    ></pre>
-
+    >
+      Waiting for message...
+    </pre>
+    
     <script>
+      // Listen for incoming messages
       window.addEventListener("message", (event) => {
-        console.log("Message received:", event.data);
-        const logDiv = document.getElementById("iframe-content");
-        logDiv.textContent += `\nMessage received from ${
-          event.origin
-        }:\n${JSON.stringify(event.data, null, 2)}\n\n`;
+        // Validate the origin of the message for security
+        const allowedOrigin =
+          "https://diary.owley-madison.jeopardy.websec.saarland";
+
+        if (event.origin === allowedOrigin) {
+          // Access the message content
+          const receivedMessage = event.data;
+
+          // Update the <pre> element with the received message
+          const contentElement = document.getElementById("iframe-content");
+          if (typeof receivedMessage === "object") {
+            contentElement.textContent = JSON.stringify(
+              receivedMessage,
+              null,
+              2
+            );
+          } else {
+            contentElement.textContent = receivedMessage;
+          }
+
+          console.log(`Message received:`, receivedMessage);
+        } else {
+          console.warn("Received message from untrusted origin:", event.origin);
+        }
       });
-      
     </script>
   </body>
 </html>
