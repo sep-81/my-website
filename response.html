@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receive Iframe Content</title>
+</head>
+<body>
+    <h1>Received Iframe Content</h1>
+    <pre id="iframe-content" style="white-space: pre-wrap; background: #f4f4f4; padding: 1em;"></pre>
+
+    <script>
+        window.addEventListener("message", (event) => {
+            if (event.origin !== "https://diary.owley-madison.jeopardy.websec.saarland") {
+                console.error("Received message from an unknown origin:", event.origin);
+                return;
+            }
+
+            // Display the received iframe content
+            const iframeContent = event.data.content;
+            document.getElementById("iframe-content").textContent = iframeContent;
+        });
+    </script>
+</body>
+</html>
