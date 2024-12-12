@@ -18,17 +18,25 @@
             console.log("Received message:", event);
 
             // Display the event origin (source page) and content for debugging
-            const outputDiv = document.getElementById("output");
+            // const outputDiv = document.getElementById("output");
 
-            if (!event.data || !event.data.content) {
-                outputDiv.textContent += "\nInvalid message or no content received.\n";
-                return;
-            }
+            // if (!event.data || !event.data.content) {
+            //     outputDiv.textContent += "\nInvalid message or no content received.\n";
+            //     return;
+            // }
 
-            // Append the received message content to the output div
-            const timestamp = new Date().toISOString();
-            outputDiv.textContent += `\n[${timestamp}] Message received from: ${event.origin}\n`;
-            outputDiv.textContent += event.data.content + "\n";
+            // // Append the received message content to the output div
+            // const timestamp = new Date().toISOString();
+            // outputDiv.textContent += `\n[${timestamp}] Message received from: ${event.origin}\n`;
+            // outputDiv.textContent += event.data.content + "\n";
+
+
+
+            // Log and display the received message
+            const logDiv = document.getElementById("iframe-content");
+            logDiv.textContent += `Received message at ${new Date().toLocaleTimeString()}:\n${JSON.stringify(event.data, null, 2)}\n\n`;
+
+            console.log("Received message:", event.data);
           });
         //     console.log("Received message from an origin:", event.origin);
             
