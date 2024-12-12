@@ -11,11 +11,12 @@
 
     <script>
         window.addEventListener("message", (event) => {
-            if (event.origin !== "https://diary.owley-madison.jeopardy.websec.saarland") {
-                console.error("Received message from an unknown origin:", event.origin);
-                return;
-            }
-
+            // if (event.origin !== "https://diary.owley-madison.jeopardy.websec.saarland") {
+            //     console.error("Received message from an unknown origin:", event.origin);
+            //     return;
+            // }
+            console.log("Received message from an origin:", event.origin);
+            
             // Display the received iframe content
             const iframeContent = event.data.content;
             document.getElementById("iframe-content").textContent = iframeContent;
